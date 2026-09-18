@@ -1,0 +1,10 @@
+{
+  "name": "aegisscan-node",
+  "version": "1.0.1",
+  "description": "Defensive Security Event Ingestion SDK for AegisScan",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "keywords": ["security", "soc", "aegisscan", "telemetry", "waf"],
+  "author": "AegisScan Team",
+  "license": "MIT"
+}
