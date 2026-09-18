@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserProfile {
+  id          String   @id @default(cuid())
+  clerkUserId String   @unique
+  name        String
+  email       String   @unique
+  role        String   @default("OWNER") // OWNER, SECURITY_ANALYST, VIEWER
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id                 String          @id @default(cuid())
+  name               String
+  description        String?
+  targetUrl          String
+  ownershipConfirmed Boolean         @default(false)
+  status             String          @default("ACTIVE") // ACTIVE, PAUSED, ARCHIVED
+  createdBy          String          @default("user_default")
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  assessments        Assessment[]
+  findings           Finding[]
+  securityEvents     SecurityEvent[]
+  incidents          Incident[]
+  apiKeys            ApiKey[]
+  auditLogs          AuditLog[]
+  reports            Report[]
+}
+
+model Assessment {
+  id            String    @id @default(cuid())
+  projectId     String
+  project       Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  status        String    @default("QUEUED") // QUEUED, RUNNING, COMPLETED, FAILED
+  startedAt     DateTime?
+  completedAt   DateTime?
+  securityScore Int?
+  totalChecks   Int       @default(0)
+  passedChecks  Int       @default(0)
+  failedChecks  Int       @default(0)
+  createdAt     DateTime  @default(now())
+  findings      Finding[]
+  reports       Report[]
+}
+
+model Finding {
+  id             String      @id @default(cuid())
+  assessmentId   String?
+  assessment     Assessment? @relation(fields: [assessmentId], references: [id], onDelete: SetNull)
+  projectId      String
+  project        Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  category       String      // HEADERS, HTTPS, COOKIES, TLS, CONFIG, METADATA
+  title          String
+  description    String      @db.Text
+  severity       String      // CRITICAL, HIGH, MEDIUM, LOW, INFO
+  evidence       String?     @db.Text
+  recommendation String?     @db.Text
+  status         String      @default("OPEN") // OPEN, ACKNOWLEDGED, RESOLVED, FALSE_POSITIVE
+  createdAt      DateTime    @default(now())
+}
+
+model SecurityEvent {
+  id        String          @id @default(cuid())
+  projectId String
+  project   Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type      String          // LOGIN_SUCCESS, LOGIN_FAILED, PASSWORD_RESET, ACCOUNT_LOCKED, RATE_LIMIT_TRIGGERED, UNAUTHORIZED_ACCESS, ADMIN_ACCESS, SUSPICIOUS_REQUEST, SQLI_PATTERN_DETECTED, XSS_PATTERN_DETECTED, PRIVILEGE_CHANGE
+  severity  String          // CRITICAL, HIGH, MEDIUM, LOW, INFO
+  sourceIp  String?
+  userId    String?
+  endpoint  String?
+  userAgent String?
+  metadata  String?         @db.Text
+  timestamp DateTime        @default(now())
+  incidents IncidentEvent[]
+}
+
+model Incident {
+  id           String          @id @default(cuid())
+  incidentCode String?         // e.g. INC-000001
+  projectId    String
+  project      Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title        String
+  description  String          @db.Text
+  severity     String          // CRITICAL, HIGH, MEDIUM, LOW, INFO
+  status       String          @default("OPEN") // OPEN, INVESTIGATING, RESOLVED, FALSE_POSITIVE
+  sourceIp     String?
+  firstSeen    DateTime        @default(now())
+  lastSeen     DateTime        @default(now())
+  eventCount   Int             @default(1)
+  notes        String?         @db.Text
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  events       IncidentEvent[]
+}
+
+model IncidentEvent {
+  id         String        @id @default(cuid())
+  incidentId String
+  incident   Incident      @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  eventId    String
+  event      SecurityEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([incidentId, eventId])
+}
+
+model ApiKey {
+  id         String    @id @default(cuid())
+  projectId  String
+  project    Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name       String
+  keyPrefix  String    // e.g. aeg_live_7f29
+  hashedKey  String    // SHA-256 hash
+  lastUsedAt DateTime?
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  actorId   String   @default("system")
+  action    String   // PROJECT_CREATED, ASSESSMENT_STARTED, ASSESSMENT_COMPLETED, API_KEY_CREATED, API_KEY_REVOKED, FINDING_STATUS_CHANGED, INCIDENT_CREATED, INCIDENT_STATUS_CHANGED, REPORT_GENERATED
+  metadata  String?  @db.Text
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
+
+model Report {
+  id           String      @id @default(cuid())
+  projectId    String
+  project      Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assessmentId String?
+  assessment   Assessment? @relation(fields: [assessmentId], references: [id], onDelete: SetNull)
+  generatedBy  String      @default("Analyst")
+  reportType   String      @default("EXECUTIVE") // EXECUTIVE, TECHNICAL, COMPLIANCE
+  createdAt    DateTime    @default(now())
+}
