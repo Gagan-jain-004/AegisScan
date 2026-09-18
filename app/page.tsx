@@ -215,6 +215,148 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Methodology Section */}
+      <section id="methodology" className="py-20 border-t border-[#1e293b] bg-[#020617] scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-sky-950/80 border border-sky-800 text-sky-300 font-mono text-xs mb-3">
+              <Lock className="w-3.5 h-3.5" /> Strictly Defensive Philosophy
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 tracking-tight">
+              Responsible & Safe Assessment Methodology
+            </h2>
+            <p className="mt-3 text-sm text-slate-400">
+              AegisScan uses non-destructive, authorized evaluation standards designed to protect your infrastructure.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-[#090d16] border border-[#1e293b] p-5 rounded-lg space-y-3">
+              <div className="text-sky-400 font-mono text-xs font-bold uppercase tracking-wider">01. SSRF Shield</div>
+              <h4 className="text-sm font-semibold text-slate-200">DNS & IP Validation</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Prevents scans targeting <code className="text-sky-300">localhost</code>, loopbacks, RFC 1918 private subnets, and cloud metadata (AWS/GCP/Azure).
+              </p>
+            </div>
+
+            <div className="bg-[#090d16] border border-[#1e293b] p-5 rounded-lg space-y-3">
+              <div className="text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider">02. Passive Audits</div>
+              <h4 className="text-sm font-semibold text-slate-200">Non-Destructive</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Safe TLS certificate checks, HTTP security response header evaluation (CSP, HSTS, XFO), and cookie attribute inspection.
+              </p>
+            </div>
+
+            <div className="bg-[#090d16] border border-[#1e293b] p-5 rounded-lg space-y-3">
+              <div className="text-teal-400 font-mono text-xs font-bold uppercase tracking-wider">03. RFC 9116 Standards</div>
+              <h4 className="text-sm font-semibold text-slate-200">Security.txt & Metadata</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Verifies public security vulnerability disclosure policies, robots.txt directives, and server banner disclosures.
+              </p>
+            </div>
+
+            <div className="bg-[#090d16] border border-[#1e293b] p-5 rounded-lg space-y-3">
+              <div className="text-amber-400 font-mono text-xs font-bold uppercase tracking-wider">04. Weighted Scoring</div>
+              <h4 className="text-sm font-semibold text-slate-200">0-100 Posture Score</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Categorized risk weighting across Transport (30%), Headers (35%), Cookies (20%), and Policy (15%).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Threat Detection Section */}
+      <section id="detection" className="py-20 border-t border-[#1e293b] bg-[#050811] scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-rose-950/80 border border-rose-800 text-rose-300 font-mono text-xs mb-3">
+              <Flame className="w-3.5 h-3.5" /> SOC Correlation Engine
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 tracking-tight">
+              Real-Time Defensive Threat Detection
+            </h2>
+            <p className="mt-3 text-sm text-slate-400">
+              Correlate incoming authentication telemetry and HTTP events to instantly alert your team on cyber attacks.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-[#090d16] border border-[#1e293b] p-6 rounded-lg space-y-3 relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-rose-400">BRUTE_FORCE</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800">CRITICAL</span>
+              </div>
+              <h4 className="text-sm font-semibold text-slate-200">Credential Stuffing & Brute Force</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Automatically detects when more than 5 failed login events occur within a 60-second sliding window for a single IP or user account.
+              </p>
+            </div>
+
+            <div className="bg-[#090d16] border border-[#1e293b] p-6 rounded-lg space-y-3 relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-amber-400">AUTH_ANOMALY</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">HIGH</span>
+              </div>
+              <h4 className="text-sm font-semibold text-slate-200">Sequence Anomaly & Account Takeover</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Flags suspicious login patterns where multiple authentication failures are abruptly followed by successful logins from mismatched geographic IPs.
+              </p>
+            </div>
+
+            <div className="bg-[#090d16] border border-[#1e293b] p-6 rounded-lg space-y-3 relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-red-400">INJECTION_PROBES</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-red-950 text-red-300 border border-red-800">HIGH</span>
+              </div>
+              <h4 className="text-sm font-semibold text-slate-200">SQLi & XSS Payload Telemetry</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Evaluates query parameters and request payloads against standard OWASP signatures (e.g., UNION SELECT, script tag injections, traversal probes).
+              </p>
+            </div>
+
+            <div className="bg-[#090d16] border border-[#1e293b] p-6 rounded-lg space-y-3 relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-orange-400">ACCESS_CONTROL</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-orange-950 text-orange-300 border border-orange-800">MEDIUM</span>
+              </div>
+              <h4 className="text-sm font-semibold text-slate-200">BOLA & IDOR Unauthorized Probing</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Flags repeated HTTP 401/403 attempts targeting administrative or restricted object endpoints.
+              </p>
+            </div>
+
+            <div className="bg-[#090d16] border border-[#1e293b] p-6 rounded-lg space-y-3 relative overflow-hidden">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-yellow-400">RATE_LIMIT_BURST</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-yellow-950 text-yellow-300 border border-yellow-800">MEDIUM</span>
+              </div>
+              <h4 className="text-sm font-semibold text-slate-200">Rate Limit Saturation</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Detects sustained bursts of 429 Too Many Requests responses indicating automated scrapers or DoS attempts.
+              </p>
+            </div>
+
+            <div className="bg-[#090d16] border border-sky-800/60 p-6 rounded-lg space-y-3 bg-gradient-to-b from-sky-950/30 to-[#090d16] flex flex-col justify-between">
+              <div>
+                <div className="text-xs font-mono font-bold text-sky-400 mb-2">DEVELOPER SDK</div>
+                <h4 className="text-sm font-semibold text-slate-200">aegisscan-node on NPM</h4>
+                <p className="text-xs text-slate-400 leading-relaxed mt-1">
+                  Send telemetry with 1 line of code using our published client library.
+                </p>
+              </div>
+              <Link
+                href="/docs"
+                className="text-xs font-mono font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1.5 transition-colors pt-2"
+              >
+                <span>Read SDK Integration Docs</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-[#1e293b] bg-[#090d16] py-12 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
