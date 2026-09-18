@@ -4,6 +4,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat&logo=postgresql)](https://www.postgresql.org/)
 [![TailwindCSS](https://img.shields.io/badge/UI-TailwindCSS%20%26%20SOC%20Design-06B6D4?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
+[![npm version](https://img.shields.io/npm/v/aegisscan-node.svg?color=0284c7&logo=npm)](https://www.npmjs.com/package/aegisscan-node)
 
 AegisScan is an **enterprise-grade, authorized Web Application Security Monitoring & Assessment Platform** designed for developers, DevOps teams, and security engineers.
 
@@ -24,15 +25,15 @@ AegisScan operates as a **strictly defensive cybersecurity product**:
 - **Frontend**: Next.js (App Router), React, TypeScript, Tailwind CSS, Lucide Icons, Recharts
 - **Backend**: Next.js Route Handlers, Node.js, Zod Validation, Cryptographic SHA-256 Hashing
 - **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: Clerk-compatible + Built-in RBAC (`OWNER`, `SECURITY_ANALYST`, `VIEWER`)
+- **Authentication**: Clerk Authentication with secure session management
 - **Reporting**: High-fidelity Executive Security Reports (Printable / PDF)
-- **Developer SDK**: `aegisscan-node` lightweight telemetry client
+- **Developer SDK**: [`aegisscan-node`](https://www.npmjs.com/package/aegisscan-node) on npm
 
 ---
 
 ## 3. Database Architecture (PostgreSQL)
 
-- `UserProfile`: Role-based access control (OWNER, SECURITY_ANALYST, VIEWER).
+- `UserProfile`: Synchronized user profile with admin access.
 - `Project`: Registered target application scopes with ownership verification.
 - `Assessment`: Historical posture scans, security scores (0-100), and check counts.
 - `Finding`: Cataloged posture vulnerabilities with evidence and remediation guides.
@@ -101,9 +102,9 @@ Located in `lib/detection/`:
 
 ---
 
-## 7. Developer SDK (aegisscan-node)
+## 7. Developer SDK ([`aegisscan-node`](https://www.npmjs.com/package/aegisscan-node))
 
-Install the lightweight client library:
+Install the lightweight client library from [npm registry](https://www.npmjs.com/package/aegisscan-node):
 ```bash
 npm install aegisscan-node
 ```
